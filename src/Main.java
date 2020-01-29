@@ -13,6 +13,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 class Main {
@@ -37,6 +38,7 @@ class Main {
                             + "angiv dit valg \n"
                             + "horoskop : for at se dagens horoskop \n"
                             + "læs : for at læse fra fil \n"
+                            + "LæsNem : for at bruge vores egen fillæser\n"
                             + "stop : for at stoppe serveren";
                     break;
 
@@ -52,6 +54,18 @@ class Main {
                     str2 = readLineByLineJava8(str);
                     break;
 
+                case "læsNem":
+
+                    dout.writeUTF("angiv filnavn");
+                    dout.flush();
+
+                    str = din.readUTF();
+                    str2 = filReadEasy(str);
+                    break;
+
+
+
+
                 default:
                     str2 = " det forstod jeg ikke";
                     break;
@@ -62,7 +76,6 @@ class Main {
             //str2 = br.readLine();  // denne skal selvfølgelig lige ud, da den venter på input i terminalen server -> client
 
             dout.writeUTF(str2);
-
             dout.flush();
 
         }
@@ -79,6 +92,23 @@ class Main {
             e.printStackTrace();
         }
         return contentBuilder.toString();
+    }
+
+
+    private  static String filReadEasy (String filPath) throws FileNotFoundException {
+
+        File file = new File(filPath);
+
+        Scanner scanner = new Scanner(file);
+
+        String res="";
+
+        while (scanner.hasNext()) {
+
+            res += scanner.nextLine() + "\n";
+
+        }
+        return res;
     }
 
 }

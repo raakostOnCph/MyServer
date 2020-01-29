@@ -60,7 +60,17 @@ class Main {
                     dout.flush();
 
                     str = din.readUTF();
-                    str2 = filReadEasy(str);
+
+
+                    try {
+                        str2 = filReadEasy(str);
+                    } catch (FileNotFoundException e) {
+
+                        str2 = "filen findes ikke !";
+                        System.out.println("clinten skrive forkert filnavn");;
+                    }
+
+
                     break;
 
 
